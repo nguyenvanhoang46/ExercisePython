@@ -1,4 +1,8 @@
 
+import math
+
+eps = 0.00001 #Sai số
+
 # bài 1
 def baimot(x):
     k = 0
@@ -14,7 +18,7 @@ def baimot(x):
 
 
 # Kiểm tra với giá trị x = 7
-print(f"Example One: {baimot(float(7)):.8f}")
+print(f"Kết quả bài 1: {baimot(float(7)):.8f}")
 
 # bài 2
 def baihai(x):
@@ -35,7 +39,7 @@ def baihai(x):
 
 
 # Kiểm tra với giá trị x = 0.5
-print(f"Example Two: {baihai(0.5)}")
+print(f"Kết quả bài 2: {baihai(0.5)}")
 
 # bài 3
 def baiba(x):
@@ -51,7 +55,7 @@ def baiba(x):
     return first
 
 
-print(f"Example Three: {baiba(float(-1))}")
+print(f"Kết quả bài 3: {baiba(float(-1))}")
 
 # bài 4
 def baibon(x):
@@ -82,7 +86,7 @@ def baibon(x):
         
     return first
 
-print(f"Example Four: {exampleFour(float(0.5))}")
+print(f"Kết quả bài 4: {baibon(float(0.5))}")
 
 # bài 5
 def bainam(x):
@@ -111,7 +115,7 @@ def bainam(x):
     return first
 
 # Kiểm tra với giá trị x = 0.5
-print(f"Example Five: {bainam(0.5)}")
+print(f"Kết quả bài 5: {bainam(0.5)}")
 
 
 # bài 6
@@ -135,7 +139,7 @@ def baisau(x):
         
     return first
 
-print(f"Example Six: {baisau(1)}")
+print(f"Kết quả bài 6: {baisau(1)}")
 
 
 # bài 7
@@ -160,7 +164,7 @@ def baibay(x):
     return first
 
 
-print(f"Example Seven: {exampleSeven(1)}")
+print(f"Kết quả bài 7: {baibay(1)}")
 
 
 # bài 8
@@ -180,7 +184,7 @@ def baitam(x):
     return first
 
 # Kiểm tra kết quả với x = 0.5
-print(f"Example Eight: {baitam(0.5)}")
+print(f"Kết quả bài 8: {baitam(0.5)}")
 
 
 # bài 9
@@ -201,7 +205,7 @@ def baichin(x):
     return first
 
 # Kiểm tra kết quả với x = 1 và n = 5
-print(f"Example Nine: {baichin(1)}")
+print(f"Kết quả bài 9: {baichin(1)}")
 
 
 # bài 10
@@ -223,7 +227,7 @@ def baimuoi(x):
     return first
 
 # Kiểm tra kết quả với x = 0.5 
-print(f"Example Ten: {baimuoi(0.5)}")
+print(f"Kết quả bài 10: {baimuoi(0.5)}")
 
 
 # bài 11
@@ -239,7 +243,7 @@ def baimuoimot(x):
     return first
 
 # Kiểm tra kết quả với x = 0.5
-print(f"Example Eleven: {baimuoimot(0.5)}")
+print(f"Kết quả bài 11: {baimuoimot(0.5)}")
 
 
 # bài 12
@@ -255,7 +259,7 @@ def baimuoihai(x):
     return first
 
 # Kiểm tra kết quả với x = 0.5 
-print(f"Example Twelve: {baimuoihai(0.5)}")
+print(f"Kết quả bài 12: {baimuoihai(0.5)}")
 
 
 # bài 13
@@ -272,7 +276,7 @@ def baimuoiba(x):
 
 
 # Kiểm tra kết quả với x = 0.5
-print(f"Example Thirteen {baimuoiba(0.5)}")
+print(f"Kết quả bài 13: {baimuoiba(0.5)}")
 
 
 # bài 14
@@ -288,4 +292,4 @@ def baimuoibon(x):
     return first
 
 # Kiểm tra kết quả với x = 0.5
-print(f"Example Fourteen: {baimuoibon(0.5)}")
+print(f"Kết quả bài 14: {baimuoibon(0.5)}")
