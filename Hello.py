@@ -1,270 +1,291 @@
-import math
 
-# 1
-
-def e_to_x(x, eps=1e-6):
-    term = 1.0
-    result = term
-    i = 1
-    while abs(term) > eps:
-        term *= x / i
-        result += term
-        i += 1
-    return result
-
-
-x = float(input("Nhap gia tri cua x: "))
-print("e^{} = {}".format(x, e_to_x(x)))
-
-# 2
-
-
-def maclaurin(x, n):
-    # Khởi tạo biến đếm và giá trị của chuỗi
-    k = 1
+# bài 1
+def baimot(x):
+    k = 0
     s = 1
+    term = 1
 
-    # Tính giá trị của từng số hạng trong chuỗi Maclaurin
-    while k < n:
-        # Tính các hệ số
-        a = k + 1
-        b = k + 2
-        c = 2
-
-        # Tính số hạng trong chuỗi
-        term = (-1) ** k * a * b / c * x ** (3 * k)
-        s += term
+    while abs(term) > 1e-8:
         k += 1
+        term *= x / k
+        s += term
 
     return s
 
 
-# Nhập giá trị của x từ bàn phím
-x = float(input("Nhập giá trị của x: "))
+# Kiểm tra với giá trị x = 7
+print(f"Example One: {baimot(float(7)):.8f}")
 
-# Tính giá trị của 1/(1+x^3) với 10 số hạng đầu tiên của chuỗi Maclaurin
-n = 10
-result = maclaurin(x, n)
+# bài 2
+def baihai(x):
+    i = 1 
+    first = 1
+    second = first - ( (((i+1) * (i+2))/2)*x**i )
 
-# In ra kết quả
-print(f"Giá trị của 1/(1+x^3) là {result}")
+    while(abs(first - second) >  eps):
+        i += 1
+        first = second 
 
-# 3
-x = float(input("Nhập giá trị của x: "))
-n = int(input("Nhập số lượng hạng tử n: "))
-
-result = 0
-
-for i in range(n):
-    term = ((-1) ** i) * (x ** i) / (i + 1)
-    result += term
-
-print("Giá trị của hàm số ln(1-x) cho x =", x, "và n =", n, "là:", result)
-# 4
-
-def sqrt_1_plus_x(x, terms=10):
-    """Tính căn bậc hai của (1 + x) bằng chuỗi Taylor với số lượng terms"""
-    result = 0
-    for n in range(terms):
-        numerator = 1
-        denominator = 1
-        for i in range(n):
-            numerator *= (2 * i + 1)
-            denominator *= (2 * i + 2)
-        term = ((-1) ** n * numerator * x ** (n + 1)) / (denominator * 2 ** n)
-        result += term
-    return result + 1
+        if(i % 2 == 0): 
+            second = first + ( (((i+1) * (i+2))/2)*x**i )
+        else:
+            second = first - ( (((i+1) * (i+2))/2)*x**i )
+            
+    return first
 
 
 # Kiểm tra với giá trị x = 0.5
-x = 0.5
-# Kết quả phải gần bằng math.sqrt(1+x) = math.sqrt(1.5) = 1.224744871391589
-print(sqrt_1_plus_x(x))
+print(f"Example Two: {baihai(0.5)}")
+
+# bài 3
+def baiba(x):
+    i = 1
+    first = -x
+    second = first - ((x**(i+1))/(i+1))
+    
+    while(abs(second - first) > 0.0001):
+        i += 1
+        first = second
+        second = first - ((x**(i+1))/(i+1))
+        
+    return first
 
 
-# 5
-def inv_sqrt_1_plus_x(x, terms=10):
-    """Tính nghịch đảo căn bậc hai của (1 + x) bằng chuỗi Taylor với số lượng terms"""
-    result = 1
-    for n in range(1, terms):
-        numerator = 1
-        denominator = 1
-        for i in range(n):
-            numerator *= (2 * i - 1) if i > 0 else (-1)
-            denominator *= (2 * i) if i > 0 else 1
-        term = ((-1) ** n * numerator * x ** n) / (denominator * 2 ** (n - 1))
-        result += term
-    return result
+print(f"Example Three: {baiba(float(-1))}")
 
+# bài 4
+def baibon(x):
+    i = 1
+    first = 1
+    tuSo = 1
+    mauSo = 2
+    
+    second = first + (tuSo / mauSo)*x
+    tuSoStep = 1
+    mauSoStep = 4
+        
+    while(abs(first - second) > eps):
+        i += 1
+        first = second
+        
+        
+        tuSo *= tuSoStep
+        mauSo *= mauSoStep
+        
+        tuSoStep += 2
+        mauSoStep += 2
+        
+        if (i % 2 == 0):
+            second -= (tuSo / mauSo)*x**i
+        else:
+            second += (tuSo / mauSo)*x**i
+        
+    return first
+
+print(f"Example Four: {exampleFour(float(0.5))}")
+
+# bài 5
+def bainam(x):
+    i = 1
+    first = 1
+    tuSo = 1
+    mauSo = 2
+    tuSoStep = 3
+    mauSoStep = 4
+    
+    second = first - (tuSo / mauSo)*x
+    while(abs(first - second) > eps):
+        i += 1
+        tuSo *= tuSoStep
+        mauSo *= mauSoStep
+        
+        tuSoStep += 2
+        mauSoStep += 2
+        first = second
+        
+        if (i % 2 == 0):
+            second += (tuSo / mauSo)*x**i
+        else:
+            second -= (tuSo / mauSo)*x**i
+    
+    return first
 
 # Kiểm tra với giá trị x = 0.5
-x = 0.5
-# Kết quả phải gần bằng 1/math.sqrt(1+x) = 1/math.sqrt(1.5) = 0.816496580927726
-print(inv_sqrt_1_plus_x(x))
-# 6
+print(f"Example Five: {bainam(0.5)}")
 
 
-def sin(x, terms=10):
-    """Tính giá trị của hàm sin(x) bằng chuỗi Taylor với số lượng terms"""
-    result = 0
-    sign = 1
-    for n in range(terms):
-        numerator = x ** (2 * n + 1)
-        denominator = math.factorial(2 * n + 1)
-        term = sign * numerator / denominator
-        result += term
-        sign *= -1
-    return result
+# bài 6
+def baisau(x):
+    i = 3
+    
+    first = 1
+    second = 1 - (x**(i))/math.factorial(i)
+    y = 0
+
+    while(abs(first - second) > eps):
+        i += 2
+        y += 1
+        
+        first = second
+        
+        if (i % 2 == 0):
+            second -= x**i/math.factorial(i)
+        else:
+            second += x**i/math.factorial(i)  
+        
+    return first
+
+print(f"Example Six: {baisau(1)}")
 
 
-# Kiểm tra với giá trị x = pi/4
-x = math.pi / 4
-print(sin(x))  # Kết quả phải gần bằng math.sin(x) = math.sin(pi/4) = 0.7071067811865476
+# bài 7
+def baibay(x):
+    i = 2
+    
+    first = 1
+    second = 1 - (x**(i))/math.factorial(i)
+    y = 0
 
-# 7
-def cos(x, eps=1e-6):
-    term = 1
-    result = term
-    i = 1
-    while abs(term) > eps:
-        term *= -x**2 / ((2*i-1) * 2*i)
-        result += term
+    while(abs(first - second) > eps):
+        y += 1
+        i += 2
+        
+        first = second
+        
+        if (i % 2 != 0):
+            second -= x**i/math.factorial(i)
+        else:
+            second += x**i/math.factorial(i)  
+        
+    return first
+
+
+print(f"Example Seven: {exampleSeven(1)}")
+
+
+# bài 8
+def baitam(x):
+    i = 3
+    first = x
+    tuSo = 1
+    mauSo = 2
+    second = first + ( (tuSo/mauSo) * (x**i)/i )  
+    while(abs(first - second) > eps):
+        i += 2
+        tuSo = tuSo * (i - 2)
+        mauSo = mauSo * ( i - 1)
+
+        first = second
+        second = first + ( (tuSo/mauSo) * (x**i)/i )
+    return first
+
+# Kiểm tra kết quả với x = 0.5
+print(f"Example Eight: {baitam(0.5)}")
+
+
+# bài 9
+def baichin(x):
+    step = 2
+    i = 0
+    first = 1
+    second = (first - x**step / math.factorial(step+1))
+
+    while abs(first - second) > eps:
+        step += 2
         i += 1
-    return result
+        first = second
+        if (i % 2 != 0):
+            second = first + x**step / math.factorial(step+1)
+        else:
+            second = first - x**step / math.factorial(step+1)
+    return first
+
+# Kiểm tra kết quả với x = 1 và n = 5
+print(f"Example Nine: {baichin(1)}")
 
 
-x = float(input("Nhap gia tri cua x: "))
-print("cos({}) = {}".format(x, cos(x)))
+# bài 10
+def baimuoi(x):
+    step = 3
+    i = 0
+    first = x
+    second = (first - x**step / step)
 
-# 8
-
-
-def arcsin(x, eps=1e-6):
-    term = x
-    result = term
-    i = 1
-    while abs(term) > eps:
-        term *= - x**2 * (2*i - 1) / (2*i * (2*i + 1))
-        result += term
+    while abs(first - second) > eps:
+        step += 2
         i += 1
-    return result
+        first = second
+        if (i % 2 != 0):
+            second = first + x**step / step
+        else:
+            second = first - x**step / step
+
+    return first
+
+# Kiểm tra kết quả với x = 0.5 
+print(f"Example Ten: {baimuoi(0.5)}")
 
 
-x = float(input("Nhap gia tri cua x: "))
-print("arcsin({}) = {}".format(x, arcsin(x)))
+# bài 11
+def baimuoimot(x):
+    step = 3
+    first = x
+    second = first + x**step / step
+
+    while abs(first - second) > eps:
+        step += 2
+        first = second
+        second = first + x**step / step
+    return first
+
+# Kiểm tra kết quả với x = 0.5
+print(f"Example Eleven: {baimuoimot(0.5)}")
 
 
-# 9
+# bài 12
+def baimuoihai(x):
+    step = 3
+    first = x
+    second = first + x**step / step
 
-def sin(x, eps=1e-6):
-    term = x
-    result = term
-    i = 1
-    while abs(term) > eps:
-        term *= - x**2 / ((2*i) * (2*i + 1))
-        result += term
-        i += 1
-    return result
+    while abs(first - second) > eps:
+        step += 2
+        first = second
+        second = first + x**step / step
+    return first
 
-
-x = float(input("Nhap gia tri cua x: "))
-print("sin({}) = {}".format(x, sin(x)))
-
-# 10
+# Kiểm tra kết quả với x = 0.5 
+print(f"Example Twelve: {baimuoihai(0.5)}")
 
 
-def arctan(x, eps=1e-6):
-    term = x
-    result = term
-    i = 1
-    while abs(term) > eps:
-        term *= - x**2 * (2*i - 1) / (2*i + 1)
-        result += term
-        i += 1
-    return result
+# bài 13
+def baimuoiba(x):
+    step = 3
+    first = x
+    second = first + x**step / math.factorial(step)
+
+    while abs(first - second) > eps:
+        step += 2
+        first = second
+        second = first + x**step / math.factorial(step)
+    return first
 
 
-x = float(input("Nhap gia tri cua x: "))
-print("arctan({}) = {}".format(x, arctan(x)))
-
-# 11
+# Kiểm tra kết quả với x = 0.5
+print(f"Example Thirteen {baimuoiba(0.5)}")
 
 
-def ln_1plusx(x, n):
-    result = 0
-    sign = 1
-    for i in range(1, n + 1):
-        term = (x ** i) / i
-        result += sign * term
-        sign *= -1
-    return result
+# bài 14
+def baimuoibon(x):
+    step = 2
+    first = x
+    second = first + x**step / math.factorial(step)
 
+    while abs(first - second) > eps:
+        step += 2
+        first = second
+        second = first + x**step / math.factorial(step)
+    return first
 
-x = 0.5  # Giá trị của x
-n = 10  # Số lượng các số hạng cần tính
-
-# Tính giá trị của ln(1+x) theo công thức
-result = math.log(1 + x)
-
-# Tính giá trị của ln(1+x) bằng cách tính tổng các số hạng
-approx_result = ln_1plusx(x, n)
-
-# In ra kết quả
-print(f"ln(1+{x}) = {result}")
-print(f"Giá trị xấp xỉ của ln(1+{x}) = {approx_result}")
-
-# 12
-
-def ln(x, n):
-    result = 0
-    for i in range(n):
-        term = (x ** (2 * i + 1)) / (2 * i + 1)
-        result += term
-    return 2 * result
-
-
-x = 0.5  # Giá trị của x
-n = 10  # Số lượng các số hạng cần tính
-
-# Tính giá trị của ln(1+x/1-x) theo công thức
-result = ln(x, n)
-
-# Tính giá trị chính xác của ln(1+x/1-x) bằng hàm của thư viện math
-exact_result = math.log((1 + x) / (1 - x))
-
-# In ra kết quả
-print(f"ln(1+{x}/1-{x}) = {result}")
-print(f"Giá trị chính xác của ln(1+{x}/1-{x}) = {exact_result}")
-
-
-# 13
-def sinh(x, n):
-    result = 0
-    for i in range(n):
-        term = (x ** (2 * i + 1)) / math.factorial(2 * i + 1)
-        result += term
-    return result
-
-
-x = 1.5  # Giá trị của x
-n = 10  # Số lượng các số hạng cần tính
-
-result = (math.exp(x) - math.exp(-x)) / 2
-
-approx_result = sinh(x, n)
-
-print(f"sinh({x}) = {result}")
-print(f"Giá trị xấp xỉ của sinh({x}) = {approx_result}")
-
-
-# 14
-def cosh(x, n):
-    result = 0
-    for k in range(n):
-        result += ((x ** (2*k)) / math.factorial(2*k))
-    return result
-
-x = float(input("Nhập giá trị của x: "))
-n = int(input("Nhập số lượng hạng tử n: "))
-
-print("Giá trị của hàm số cosh(x) cho x =", x, "và n =", n, "là:", cosh(x, n))
+# Kiểm tra kết quả với x = 0.5
+print(f"Example Fourteen: {baimuoibon(0.5)}")
